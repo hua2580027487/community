@@ -1,4 +1,4 @@
-package com.manong.community.Controller;
+package com.manong.community.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
