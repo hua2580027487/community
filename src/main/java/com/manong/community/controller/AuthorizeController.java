@@ -2,6 +2,8 @@ package com.manong.community.controller;
 
 import com.manong.community.dto.AccessTokenDTO;
 import com.manong.community.dto.GithubUser;
+import com.manong.community.mapper.UserMapper;
+import com.manong.community.model.User;
 import com.manong.community.provider.GithubProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.UUID;
 
 @Controller
 public class AuthorizeController {
@@ -26,6 +29,9 @@ public class AuthorizeController {
     @Autowired
     private GithubProvider githubProvider;
 
+    @Autowired
+    private UserMapper userMapper;
+
     @RequestMapping("/callback")
     public String callBack(@RequestParam(name = "code") String code ,
                            @RequestParam(name = "state") String state,
@@ -40,6 +46,13 @@ public class AuthorizeController {
         GithubUser githubUser = githubProvider.getGithubUser(accessToken);
         if(githubUser != null){
             //登录成功
+            User user = new User();
+            user.setAccountId(String.valueOf(githubUser.getId()));
+            user.setName(githubUser.getName());
+            user.setToken(UUID.randomUUID().toString());
+            user.setGmtCreate(System.currentTimeMillis());
+            user.setGmtModified(user.getGmtCreate());
+            userMapper.insertUser(user);
             request.getSession().setAttribute("user",githubUser);
             return "redirect:/";
         }else{
