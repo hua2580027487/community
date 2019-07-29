@@ -1,0 +1,16 @@
+.header{
+    background-color: #499EF3;
+    padding: 0px 55px;
+}
+
+.body{
+    margin: 30px 50px;
+}
+.btn-submit{
+    float: right;
+    margin-bottom: 10px;
+}
+
+.bg{
+    background-image: url(../img/bg.jpg);
+}
