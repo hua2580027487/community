@@ -56,6 +56,7 @@ public class AuthorizeController {
             user.setToken(token);
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(user.getGmtCreate());
+            user.setAvatarUrl(githubUser.getAvatar_url());
             userMapper.insertUser(user);
             response.addCookie(new Cookie("token",token));
             return "redirect:/";

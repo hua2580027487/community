@@ -5,9 +5,10 @@
 - [spring文档]{https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-sql.html}
 - [spring boot 整合 mybaties]{http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/}
 
-##spring boot项目
+##项目工具
 - 数据库：H2（仅支持一次连接）
-
+-  mvn flyway:migrate
+-  lombok(网络问题，本地安装)
 ##快捷键
 - （win）alt + insert : 快速Set、Get
 - (win) ctrl + shift + n :快速查找文件

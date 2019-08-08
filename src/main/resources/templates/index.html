@@ -35,7 +35,7 @@
             <!--登录后状态-->
             <ul class="nav navbar-nav navbar-right">
                 <li th:if="${session.user != null}">
-                    <a href="/publish"></a>
+                    <a href="/publish">发布</a>
                 </li>
                 <li class="我" th:if="${session.user != null}">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" th:text="${session.user.name}"><span class="caret"></span></a>
