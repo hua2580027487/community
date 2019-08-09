@@ -1,13 +1,17 @@
 package com.manong.community.controller;
 
+import com.manong.community.dto.QuestionDTO;
 import com.manong.community.mapper.UserMapper;
 import com.manong.community.model.User;
+import com.manong.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 public class IndexController {
@@ -15,8 +19,12 @@ public class IndexController {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private QuestionService questionService;
+
     @RequestMapping("/")
-    public String index(HttpServletRequest request) {
+    public String index(HttpServletRequest request,
+                        Model model) {
         //应该做判空,要不然for循环会报错
         Cookie[] cookies = request.getCookies();
         if(cookies != null){
@@ -31,6 +39,9 @@ public class IndexController {
                 }
             }
         }
+        //数据传递到页面
+        List<QuestionDTO> list = questionService.allList();
+        model.addAttribute("questions",list);
         return "index";
     }
 }
