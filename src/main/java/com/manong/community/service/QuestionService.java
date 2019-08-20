@@ -1,5 +1,6 @@
 package com.manong.community.service;
 
+import com.manong.community.dto.PageDTO;
 import com.manong.community.dto.QuestionDTO;
 import com.manong.community.mapper.QuestionMapper;
 import com.manong.community.mapper.UserMapper;
@@ -21,16 +22,31 @@ public class QuestionService {
     @Autowired
     private QuestionMapper questionMapper;
 
-    public List<QuestionDTO> allList() {
-        List<Question> questionList = questionMapper.questionList();
+    public PageDTO allList(Integer page, Integer size) {
+        PageDTO pageDTO = new PageDTO();
+        Integer totalCount = questionMapper.count();
+        pageDTO.setPage(totalCount, page, size);
+        //越界判断
+        if (page < 1) {
+            page = 1;
+        }
+
+        if (page > pageDTO.getTotalPage()) {
+            page = pageDTO.getTotalPage();
+        }
+        //5*(i-1)
+        Integer offset = size * (page - 1);
+        List<Question> questionList = questionMapper.questionList(offset, size);
         List<QuestionDTO> questionDTOList = new ArrayList<>();
-        for (Question question:questionList) {
+
+        for (Question question : questionList) {
             User user = userMapper.findById(question.getCreator());
             QuestionDTO questionDTO = new QuestionDTO();
-            BeanUtils.copyProperties(question,questionDTO);
+            BeanUtils.copyProperties(question, questionDTO);
             questionDTO.setUser(user);
             questionDTOList.add(questionDTO);
         }
-        return questionDTOList;
+        pageDTO.setQuestions(questionDTOList);
+        return pageDTO;
     }
 }
