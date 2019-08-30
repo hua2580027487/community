@@ -6,6 +6,7 @@
 - [spring boot 整合 mybaties]{http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/}
 - [thymeleaf模板]{https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#using-theach}
 - [lombok地址]{https://projectlombok.org/setup/maven}
+- [springMVC拦截器]{https://docs.spring.io/spring/docs/5.0.3.RELEASE/spring-framework-reference/web.html#mvc-handlermapping-interceptor}
 ##项目工具
 - 数据库：H2（仅支持一次连接）
 -  mvn flyway:migrate
@@ -24,3 +25,6 @@
 - thymeleaf模板使用
 - mybatis驼峰映射默认关闭，修改mybatis.configuration.map-underscore-to-camel-case=true
 - 在对象模型中不按照驼峰命名（类中用"_"）导致有个别字段值一直为空,因为数据库中会映射为驼峰命名到数据模型中
+- 分页优化
+- 拦截器注解拦截了样式，去掉@EnableWebMvc注解
+- 拦截器原因（默认不配置资源会自动去加载项目静态资源，如果使用@EnableWebMvc必须配置静态资源,addResourceHandlers(引用里面默认禁用静态资源)）
