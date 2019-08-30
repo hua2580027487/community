@@ -11,6 +11,7 @@
 - 数据库：H2（仅支持一次连接）
 -  mvn flyway:migrate
 -  lombok(网络问题，本地安装)
+-  BeanUtils.copyProperties(复制对象工具类)
 ##快捷键
 - （win）alt + insert : 快速Set、Get
 - (win) ctrl + shift + n :快速查找文件
