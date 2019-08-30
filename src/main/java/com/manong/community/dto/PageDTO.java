@@ -16,21 +16,8 @@ public class PageDTO {
     private List<Integer> pages = new ArrayList<>();//总共多少页
     private Integer totalPage;
 
-    public void setPage(Integer totalCount, Integer page, Integer size) {
-        if (totalCount % size == 0) {
-            totalPage = totalCount / size;
-        } else {
-            totalPage = totalCount / size + 1;
-        }
-
-        //越界判断
-        if (page < 1) {
-            page = 1;
-        }
-
-        if (page > totalPage) {
-            page = totalPage;
-        }
+    public void setPage(Integer totalPage, Integer page) {
+        this.totalPage = totalPage;
         this.page = page;
         //判读显示
         pages.add(page);

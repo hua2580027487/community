@@ -22,21 +22,63 @@ public class QuestionService {
     @Autowired
     private QuestionMapper questionMapper;
 
-    public PageDTO allList(Integer page, Integer size) {
+    public PageDTO allPostList(Integer page, Integer size) {
         PageDTO pageDTO = new PageDTO();
+        Integer totalPage;
         Integer totalCount = questionMapper.count();
-        pageDTO.setPage(totalCount, page, size);
+        //解决我的问题页码问题
+        if (totalCount % size == 0) {
+            totalPage = totalCount / size;
+        } else {
+            totalPage = totalCount / size + 1;
+        }
+
         //越界判断
         if (page < 1) {
             page = 1;
         }
-
-        if (page > pageDTO.getTotalPage()) {
-            page = pageDTO.getTotalPage();
+        if (page > totalPage) {
+            page = totalPage;
         }
+        pageDTO.setPage(totalPage, page);
         //5*(i-1)
         Integer offset = size * (page - 1);
         List<Question> questionList = questionMapper.questionList(offset, size);
+        List<QuestionDTO> questionDTOList = new ArrayList<>();
+
+        for (Question question : questionList) {
+            User user = userMapper.findById(question.getCreator());
+            QuestionDTO questionDTO = new QuestionDTO();
+            BeanUtils.copyProperties(question, questionDTO);
+            questionDTO.setUser(user);
+            questionDTOList.add(questionDTO);
+        }
+        pageDTO.setQuestions(questionDTOList);
+        return pageDTO;
+    }
+
+    public PageDTO userPostList(Integer userId, Integer page, Integer size) {
+        PageDTO pageDTO = new PageDTO();
+        Integer totalPage;
+        Integer totalCount = questionMapper.countByUserId(userId);
+
+        if (totalCount % size == 0) {
+            totalPage = totalCount / size;
+        } else {
+            totalPage = totalCount / size + 1;
+        }
+
+        //越界判断
+        if (page < 1) {
+            page = 1;
+        }
+        if (page > totalPage) {
+            page = totalPage;
+        }
+        pageDTO.setPage(totalPage, page);
+        //5*(i-1)
+        Integer offset = size * (page - 1);
+        List<Question> questionList = questionMapper.questionByIdList(userId,offset, size);
         List<QuestionDTO> questionDTOList = new ArrayList<>();
 
         for (Question question : questionList) {

@@ -44,7 +44,7 @@ public class IndexController {
             }
         }
         //数据传递到页面
-        PageDTO pageDTO = questionService.allList(page, size);
+        PageDTO pageDTO = questionService.allPostList(page, size);
         model.addAttribute("pageDTO", pageDTO);
         return "index";
     }
