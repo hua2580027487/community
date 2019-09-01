@@ -20,6 +20,7 @@
 - (win) ctrl + shift + F12 : 代码窗口最大化
 -  (win) ctrl + p : 方法参数提示
 -  (win) ctrl + alt + v : 生成相应对象
+-  (win) shift + f6 : 关联修改对象
 ##开启编码
 - 用户名和密码问题（7.23）
 - ideamaven依赖lombok还不行，得下载lombok插件

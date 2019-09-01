@@ -28,7 +28,8 @@
             <span th:text="${personQuestionDTO.description}"></span>
             </br>
             <hr/>
-            <a th:href="@{'/publish/'+ @{personQuestionDTO.id}}" class="edit">
+            <a th:href="@{'/publish/'+ ${personQuestionDTO.id}}"
+               class="edit" th:if="${session.user != null && session.user.id == personQuestionDTO.creator}">
                 <span class="glyphicon glyphicon-pencil" aria-hidden="true">编辑</span><br>
             </a>
         </div>
@@ -47,11 +48,16 @@
                     </h6>
                 </div>
             </div>
+            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                <hr class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                <br>
+                <div>
+                    <h6>相关问题</h6>
+                </div>
+            </div>
         </div>
-        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-            <h4>相关问题</h4>
         </div>
-    </div>
+
 </div>
 </body>
 </html>
