@@ -6,10 +6,12 @@
 - [spring boot 整合 mybaties]{http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/}
 - [thymeleaf模板]{https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#using-theach}
 - [lombok地址]{https://projectlombok.org/setup/maven}
+- [mybatis逆向配置]{http://www.mybatis.org/generator/running/running.html}
 - [springMVC拦截器]{https://docs.spring.io/spring/docs/5.0.3.RELEASE/spring-framework-reference/web.html#mvc-handlermapping-interceptor}
 ##项目工具
 - 数据库：H2（仅支持一次连接）
 -  mvn flyway:migrate
+-  mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate(mybatis逆向命令)
 -  lombok(网络问题，本地安装)
 -  BeanUtils.copyProperties(复制对象工具类)
 ##快捷键
