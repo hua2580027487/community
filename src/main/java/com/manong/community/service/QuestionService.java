@@ -4,6 +4,7 @@ import com.manong.community.dto.PageDTO;
 import com.manong.community.dto.QuestionDTO;
 import com.manong.community.exception.CustomizeErrorCode;
 import com.manong.community.exception.CustomizeException;
+import com.manong.community.mapper.QuestionExtMapper;
 import com.manong.community.mapper.QuestionMapper;
 import com.manong.community.mapper.UserMapper;
 import com.manong.community.model.Question;
@@ -22,6 +23,9 @@ public class QuestionService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private QuestionExtMapper questionExtMapper;
 
     @Autowired
     private QuestionMapper questionMapper;
@@ -135,5 +139,12 @@ public class QuestionService {
                 throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
             }
         }
+    }
+
+    public void incView(Integer id) {
+        Question record = new Question();
+        record.setId(id);
+        record.setViewCount(1);
+        questionExtMapper.incView(record);
     }
 }
