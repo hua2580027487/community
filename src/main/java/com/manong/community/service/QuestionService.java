@@ -2,6 +2,8 @@ package com.manong.community.service;
 
 import com.manong.community.dto.PageDTO;
 import com.manong.community.dto.QuestionDTO;
+import com.manong.community.exception.CustomizeErrorCode;
+import com.manong.community.exception.CustomizeException;
 import com.manong.community.mapper.QuestionMapper;
 import com.manong.community.mapper.UserMapper;
 import com.manong.community.model.Question;
@@ -65,7 +67,7 @@ public class QuestionService {
         QuestionExample example = new QuestionExample();
         example.createCriteria()
                 .andCreatorEqualTo(userId);
-        Integer totalCount = (int)questionMapper.countByExample(example);
+        Integer totalCount = (int) questionMapper.countByExample(example);
 
         if (totalCount % size == 0) {
             totalPage = totalCount / size;
@@ -86,7 +88,7 @@ public class QuestionService {
         QuestionExample questionListByIdExample1 = new QuestionExample();
         questionListByIdExample1.createCriteria()
                 .andCreatorEqualTo(userId);
-        List<Question> questionList = questionMapper.selectByExampleWithRowbounds(questionListByIdExample1,new RowBounds(offset, size));
+        List<Question> questionList = questionMapper.selectByExampleWithRowbounds(questionListByIdExample1, new RowBounds(offset, size));
         List<QuestionDTO> questionDTOList = new ArrayList<>();
 
         for (Question question : questionList) {
@@ -102,6 +104,9 @@ public class QuestionService {
 
     public QuestionDTO personQuestionById(Integer id) {
         Question question = questionMapper.selectByPrimaryKey(id);
+        if (question == null) {
+            throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+        }
         QuestionDTO questionDTO = new QuestionDTO();
         BeanUtils.copyProperties(question, questionDTO);
         User user = userMapper.selectByPrimaryKey(question.getCreator());
@@ -125,7 +130,10 @@ public class QuestionService {
             QuestionExample example = new QuestionExample();
             example.createCriteria()
                     .andIdEqualTo(question.getId());
-            questionMapper.updateByExampleSelective(updateQuestion, example);
+            int isUpdate = questionMapper.updateByExampleSelective(updateQuestion, example);
+            if (isUpdate != 1) {
+                throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+            }
         }
     }
 }

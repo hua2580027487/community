@@ -23,22 +23,22 @@ public class ProfileController {
                           @PathVariable(name = "action") String action,
                           Model model,
                           @RequestParam(name = "page", defaultValue = "1") Integer page,
-                          @RequestParam(name = "size", defaultValue = "5") Integer size){
+                          @RequestParam(name = "size", defaultValue = "5") Integer size) {
 
         User user = (User) request.getSession().getAttribute("user");
 
-        if(user == null){
+        if (user == null) {
             return "redirect:/";
         }
-        if("questions".equals(action)){
-            model.addAttribute("section","questions");
-            model.addAttribute("sectionName","我的提问");
-        }else if("replies".equals(action)){
-            model.addAttribute("section","replies");
-            model.addAttribute("sectionName","最新回复");
+        if ("questions".equals(action)) {
+            model.addAttribute("section", "questions");
+            model.addAttribute("sectionName", "我的提问");
+        } else if ("replies".equals(action)) {
+            model.addAttribute("section", "replies");
+            model.addAttribute("sectionName", "最新回复");
         }
         PageDTO pageDTO = questionService.userPostList(user.getId(), page, size);
-        model.addAttribute("pageDTO",pageDTO);
+        model.addAttribute("pageDTO", pageDTO);
         return "profile";
     }
 }

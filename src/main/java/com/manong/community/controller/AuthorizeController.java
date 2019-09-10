@@ -40,10 +40,10 @@ public class AuthorizeController {
     private UserService userService;
 
     @RequestMapping("/callback")
-    public String callBack(@RequestParam(name = "code") String code ,
+    public String callBack(@RequestParam(name = "code") String code,
                            @RequestParam(name = "state") String state,
                            HttpServletRequest request,
-                           HttpServletResponse response){
+                           HttpServletResponse response) {
         AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
         accessTokenDTO.setClient_id(client_id);
         accessTokenDTO.setClient_secret(client_secret);
@@ -52,7 +52,7 @@ public class AuthorizeController {
         accessTokenDTO.setState(state);
         String accessToken = githubProvider.getAccessToken(accessTokenDTO);
         GithubUser githubUser = githubProvider.getGithubUser(accessToken);
-        if(githubUser != null && githubUser.getId() != null){
+        if (githubUser != null && githubUser.getId() != null) {
             //登录成功
             User user = new User();
             user.setAccountId(String.valueOf(githubUser.getId()));
@@ -61,9 +61,9 @@ public class AuthorizeController {
             user.setToken(token);
             user.setAvatarUrl(githubUser.getAvatar_url());
             userService.InsertOrUpdate(user);
-            response.addCookie(new Cookie("token",token));
+            response.addCookie(new Cookie("token", token));
             return "redirect:/";
-        }else{
+        } else {
             //登录失败
             return "redirect:/";
         }
@@ -71,9 +71,9 @@ public class AuthorizeController {
 
     @GetMapping("/logout")
     public String logout(HttpServletRequest request,
-                         HttpServletResponse response){
+                         HttpServletResponse response) {
         request.getSession().removeAttribute("user");
-        Cookie cookie = new Cookie("token",null);
+        Cookie cookie = new Cookie("token", null);
         cookie.setMaxAge(0);
         response.addCookie(cookie);
         return "redirect:/";

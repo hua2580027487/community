@@ -10,6 +10,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Autowired
     private UserSessionInterceptor userSessionInterceptor;
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(userSessionInterceptor).addPathPatterns("/**");

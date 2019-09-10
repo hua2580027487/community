@@ -32,3 +32,4 @@
 - 分页优化
 - 拦截器注解拦截了样式，去掉@EnableWebMvc注解
 - 拦截器原因（默认不配置资源会自动去加载项目静态资源，如果使用@EnableWebMvc必须配置静态资源,addResourceHandlers(引用里面默认禁用静态资源)）
+- 异常（springBoot自动识别error.html,使用枚举自定义异常，拦截不到的异常使用ErrorController拦截）

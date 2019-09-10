@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>manong community</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/community.css">
+    <!--导入JQuery-->
+    <script src="/js/jquery-3.3.1.min.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="/js/bootstrap.min.js"></script>
+</head>
+<body class="bg">
+<div th:insert="~{navigation :: nav}"></div>
+    <div class="error_jumbotron">
+        <h1>哎呀，出错了!</h1>
+        <p th:text="${message}">不好意思，服务器炸了</p>
+        <p><a class="btn btn-primary btn-lg" href="/" role="button">返回主页</a></p>
+    </div>
+</body>
+</html>
