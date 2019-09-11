@@ -3,13 +3,15 @@ package com.manong.community.exception;
 public class CustomizeException extends RuntimeException {
 
     private String message;
-
-    public CustomizeException(String message) {
-        this.message = message;
-    }
+    private Integer code;
 
     public CustomizeException(ICustomizeErrorCode iCustomizeErrorCode) {
+        this.code = iCustomizeErrorCode.getCode();
         this.message = iCustomizeErrorCode.getMessage();
+    }
+
+    public Integer getCode() {
+        return code;
     }
 
     @Override
