@@ -23,6 +23,7 @@
 -  (win) ctrl + p : 方法参数提示
 -  (win) ctrl + alt + v : 生成相应对象
 -  (win) shift + f6 : 关联修改对象
+-  win）ctrl + f6 : 修改变量和类型
 -  (win) ctrl + alt + o: 删除无用import
 ##开启编码
 - 用户名和密码问题（7.23）
@@ -34,3 +35,5 @@
 - 拦截器注解拦截了样式，去掉@EnableWebMvc注解
 - 拦截器原因（默认不配置资源会自动去加载项目静态资源，如果使用@EnableWebMvc必须配置静态资源,addResourceHandlers(引用里面默认禁用静态资源)）
 - 异常（springBoot自动识别error.html,使用枚举自定义异常，拦截不到的异常使用ErrorController拦截）
+- 使用枚举定义异常（优雅手段）
+- 使用事务@Transactional控制提交问题回复的脏数据
