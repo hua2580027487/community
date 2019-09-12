@@ -1,40 +1,55 @@
-.header{
+.header {
     background-color: #499EF3;
     padding: 0px 55px;
 }
 
-.body{
+.body {
     margin: 30px 50px;
 }
-.btn-submit{
+
+.btn-submit {
     float: right;
     margin-bottom: 10px;
 }
 
-.bg{
+.bg {
     background-image: url(../img/bg.jpg);
 }
 
-.media-object{
+.media-object {
     width: 38px;
     height: 38px;
 }
 
-.text-desc{
+.media-body {
+    padding-top: 13px;
+}
+
+.text-desc {
     font-size: 12px;
     font-weight: normal;
     color: #999;
 }
 
-.section{
+.section {
     margin-top: 15px;
 }
 
-.edit{
+.edit {
     color: #999;
     font-size: 13px;
 }
 
-.error_jumbotron{
+.error_jumbotron {
     margin: 50px;
+}
+
+.comment {
+    padding: 10px 0;
+}
+
+.btn-comment {
+    float: right;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
