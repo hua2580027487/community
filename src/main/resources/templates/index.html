@@ -12,6 +12,15 @@
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="js/bootstrap.min.js"></script>
 </head>
+<script type="text/javascript">
+    window.onload = function () {
+        var isClose = window.localStorage.getItem("closePage");
+        if(isClose == "true"){
+            window.close();
+            window.localStorage.removeItem("closePage");
+        }
+    }
+</script>
 <body class="bg">
 <div th:insert="~{navigation :: nav}"></div>
 <!--内容盒子-->

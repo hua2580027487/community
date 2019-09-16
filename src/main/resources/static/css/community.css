@@ -53,3 +53,33 @@
     margin-top: 10px;
     margin-bottom: 10px;
 }
+
+.question_hr{
+    margin-top: 0px;
+}
+
+.quention_cont{
+    margin-bottom: 20px;
+    margin-top: 25px;
+}
+
+.question_menu{
+    color: #999;
+    margin-top: 5px;
+}
+
+.question_menu .icon{
+    margin-right: 9px;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.question_menu .icon:hover{
+    color: #499EF3;
+}
+
+.comments{
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
