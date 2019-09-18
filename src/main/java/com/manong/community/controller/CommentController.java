@@ -3,6 +3,7 @@ package com.manong.community.controller;
 import com.manong.community.dto.CommentCreateDTO;
 import com.manong.community.dto.CommentDTO;
 import com.manong.community.dto.ResultDTO;
+import com.manong.community.enums.CommentTypeEnums;
 import com.manong.community.exception.CustomizeErrorCode;
 import com.manong.community.model.Comment;
 import com.manong.community.model.User;
@@ -10,11 +11,10 @@ import com.manong.community.service.CommentService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 public class CommentController {
@@ -26,6 +26,8 @@ public class CommentController {
     @RequestMapping(value = "/comment", method = RequestMethod.POST)
     public Object post(@RequestBody CommentCreateDTO commentCreateDTO,
                        HttpServletRequest request){
+        //打印
+        System.out.println(commentCreateDTO.toString());
         //是否登录校验
         User user = (User) request.getSession().getAttribute("user");
         if(user == null){
@@ -45,5 +47,13 @@ public class CommentController {
         comment.setLikeCount(0L);
         commentService.insert(comment);
         return ResultDTO.accessOf();
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/comment/{id}", method = RequestMethod.GET)
+    public ResultDTO<List<CommentDTO>> comments(@PathVariable(name = "id")Long id) {
+        List<CommentDTO> commentDTOS = commentService.listByTargetId(id, CommentTypeEnums.COMMENT);
+        System.out.println(commentDTOS.isEmpty());
+        return ResultDTO.accessOf(commentDTOS);
     }
 }

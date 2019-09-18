@@ -2,6 +2,7 @@ package com.manong.community.controller;
 
 import com.manong.community.dto.CommentDTO;
 import com.manong.community.dto.QuestionDTO;
+import com.manong.community.enums.CommentTypeEnums;
 import com.manong.community.service.CommentService;
 import com.manong.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class QuestionController {
                            Model model) {
         QuestionDTO questionDTO = questionService.personQuestionById(id);
 
-        List<CommentDTO> commentDTOList = commentService.selectByQuestionId(id);
+        List<CommentDTO> commentDTOList = commentService.listByTargetId(id, CommentTypeEnums.QUESTION);
         //累加阅读数
         questionService.incView(id);
         model.addAttribute("personQuestionDTO", questionDTO);

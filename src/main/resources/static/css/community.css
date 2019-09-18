@@ -53,7 +53,17 @@
     margin-top: 10px;
     margin-bottom: 10px;
 }
+.sub-comments{
+    margin-top: 10px;
+    border: 1px solid #eee;
+    padding-top: 13px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
 
+.sub-comments .btn{
+    margin: 10px 0;
+}
 .question_hr{
     margin-top: 0px;
 }
@@ -72,6 +82,15 @@
     margin-right: 9px;
     font-size: 17px;
     cursor: pointer;
+}
+
+.question_menu .icon2{
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.question_menu .active{
+    color: #499EF3;
 }
 
 .question_menu .icon:hover{

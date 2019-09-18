@@ -47,11 +47,12 @@ public class CommentService {
 
         if (comment.getType() == CommentTypeEnums.COMMENT.getType()) {
             //回复评论
-            Comment dbcomment = commentMapper.selectByPrimaryKey(comment.getParentId());
-            if (dbcomment == null) {
+            Comment dbComment = commentMapper.selectByPrimaryKey(comment.getParentId());
+            System.out.println(dbComment);
+            if (dbComment == null) {
                 throw new CustomizeException(CustomizeErrorCode.COMMENT_NOT_FOUND);
             }
-            commentMapper.insert(dbcomment);
+            commentMapper.insert(comment);
         } else {
             //回复问题
             Question question = questionMapper.selectByPrimaryKey(comment.getParentId());
@@ -64,16 +65,31 @@ public class CommentService {
         }
     }
 
-    public List<CommentDTO> selectByQuestionId(Long id) {
+    public List<CommentDTO> listByTargetId(Long id, CommentTypeEnums type) {
+        //id为commentId
+        System.out.println("看看这个是什么鬼id————————" + id);
         CommentExample commentExample = new CommentExample();
+//        if (commentMapper.selectByPrimaryKey(id) == null) {
+//            //parentId
+//            commentExample.createCriteria()
+//                    .andParentIdEqualTo(id)
+//                    .andTypeEqualTo(type.getType());
+//        } else {
+//            //commentId这样只查询了一条数据
+//            Long commentId = commentMapper.selectByPrimaryKey(id).getId() + 1;
+//            commentExample.createCriteria()
+//                    .andParentIdEqualTo(commentMapper.selectByPrimaryKey(commentId).getParentId())
+//                    .andTypeEqualTo(type.getType());
+//        }
+
         commentExample.createCriteria()
                 .andParentIdEqualTo(id)
-                .andTypeEqualTo(CommentTypeEnums.QUESTION.getType());
+                .andTypeEqualTo(type.getType());
         commentExample.setOrderByClause("gmt_create desc");
         //拿到所有的comments
         List<Comment> comments = commentMapper.selectByExample(commentExample);
         //
-        if(comments.size() == 0){
+        if (comments.size() == 0) {
             return new ArrayList<>();
         }
 
