@@ -29,8 +29,16 @@
                | 阅读数：<span th:text="${personQuestionDTO.viewCount}"></span>
             </span>
                 <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <span th:text="${personQuestionDTO.description}"></span>
-                </br>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
+                     th:text="${personQuestionDTO.description}"></div>
+                <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
+                    <span class="label label-info quention_tag" th:each="tag : ${personQuestionDTO.tag.split(',')}">
+                        <span class="glyphicon glyphicon-tags"></span>
+                        <span class="label label-info " th:text="${tag}"></span>
+                    </span>
+                </div>
+                <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <hr/>
                 <a th:href="@{'/publish/'+ ${personQuestionDTO.id}}"
                    class="edit" th:if="${session.user != null && session.user.id == personQuestionDTO.creator}">
@@ -59,9 +67,12 @@
                             <div th:text="${comment.content}"></div>
                             <div class="question_menu">
                                 <span class="glyphicon glyphicon-thumbs-up icon"></span>
-                                <span class="glyphicon glyphicon-comment icon" th:data-id="${comment.id}"
-                                      onclick="collapseComments(this)"></span>
-                                <span class="icon2">0</span>
+                                <span th:data-id="${comment.id}"
+                                      onclick="collapseComments(this)" class="comment-icon">
+                                    <span class="glyphicon glyphicon-comment"></span>
+                                    <span th:text="${comment.commentCount}"></span>
+                                </span>
+
                                 <span class="pull-right"
                                       th:text="${#dates.format(comment.gmtCreate,'yyyy-MM-dd')}"></span>
                             </div>
@@ -124,11 +135,16 @@
                     </h6>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-                <hr class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <br>
                 <div>
-                    <h6>相关问题</h6>
+                    <h4>相关问题</h4>
+                    <ul class="quention_related">
+                        <li th:each="related : ${relatedQuestions}">
+                            <a th:href="@{'/question/' + ${related.id}}" th:text="${related.title}"></a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>

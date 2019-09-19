@@ -77,7 +77,24 @@
     color: #999;
     margin-top: 5px;
 }
+.quention_related{
+    line-height: 36px;
+    font-size: 13px;
+    margin-left: 0;
+    list-style: none;
+    padding-left: 0;
+}
+.quention_tag{
+    margin-right: 5px;
+}
 
+.question_menu .comment-icon{
+    font-size: 17px;
+    cursor: pointer;
+}
+.question_menu .comment-icon:hover{
+    color: #499EF3;
+}
 .question_menu .icon{
     margin-right: 9px;
     font-size: 17px;

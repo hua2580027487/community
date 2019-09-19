@@ -4,10 +4,7 @@ import com.manong.community.dto.CommentDTO;
 import com.manong.community.enums.CommentTypeEnums;
 import com.manong.community.exception.CustomizeErrorCode;
 import com.manong.community.exception.CustomizeException;
-import com.manong.community.mapper.CommentMapper;
-import com.manong.community.mapper.QuestionExtMapper;
-import com.manong.community.mapper.QuestionMapper;
-import com.manong.community.mapper.UserMapper;
+import com.manong.community.mapper.*;
 import com.manong.community.model.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +32,9 @@ public class CommentService {
     @Autowired
     private QuestionExtMapper questionExtMapper;
 
+    @Autowired
+    private CommentExtMapper commentExtMapper;
+
     @Transactional
     public void insert(Comment comment) {
         if (comment.getParentId() == null || comment.getParentId() == 0) {
@@ -48,11 +48,15 @@ public class CommentService {
         if (comment.getType() == CommentTypeEnums.COMMENT.getType()) {
             //回复评论
             Comment dbComment = commentMapper.selectByPrimaryKey(comment.getParentId());
-            System.out.println(dbComment);
             if (dbComment == null) {
                 throw new CustomizeException(CustomizeErrorCode.COMMENT_NOT_FOUND);
             }
             commentMapper.insert(comment);
+            //增加评论数
+            Comment parentComment = new Comment();
+            parentComment.setId(comment.getParentId());
+            parentComment.setCommentCount(1);
+            commentExtMapper.incCommentView(parentComment);
         } else {
             //回复问题
             Question question = questionMapper.selectByPrimaryKey(comment.getParentId());
@@ -66,33 +70,16 @@ public class CommentService {
     }
 
     public List<CommentDTO> listByTargetId(Long id, CommentTypeEnums type) {
-        //id为commentId
-        System.out.println("看看这个是什么鬼id————————" + id);
         CommentExample commentExample = new CommentExample();
-//        if (commentMapper.selectByPrimaryKey(id) == null) {
-//            //parentId
-//            commentExample.createCriteria()
-//                    .andParentIdEqualTo(id)
-//                    .andTypeEqualTo(type.getType());
-//        } else {
-//            //commentId这样只查询了一条数据
-//            Long commentId = commentMapper.selectByPrimaryKey(id).getId() + 1;
-//            commentExample.createCriteria()
-//                    .andParentIdEqualTo(commentMapper.selectByPrimaryKey(commentId).getParentId())
-//                    .andTypeEqualTo(type.getType());
-//        }
-
         commentExample.createCriteria()
                 .andParentIdEqualTo(id)
                 .andTypeEqualTo(type.getType());
         commentExample.setOrderByClause("gmt_create desc");
         //拿到所有的comments
         List<Comment> comments = commentMapper.selectByExample(commentExample);
-        //
         if (comments.size() == 0) {
             return new ArrayList<>();
         }
-
         //获取去重的评论人
         Set<Long> commentators = comments.stream().map(comment -> comment.getCommentator()).collect(Collectors.toSet());
         List<Long> userIds = new ArrayList<>();
