@@ -3,6 +3,7 @@ package com.manong.community.interceptor;
 import com.manong.community.mapper.UserMapper;
 import com.manong.community.model.User;
 import com.manong.community.model.UserExample;
+import com.manong.community.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -19,6 +20,9 @@ public class UserSessionInterceptor implements HandlerInterceptor {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private NotificationService notificationService;
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         //程序开始前拦截用户token
@@ -34,6 +38,8 @@ public class UserSessionInterceptor implements HandlerInterceptor {
                     List<User> users = userMapper.selectByExample(example);
                     if (users.size() != 0) {
                         request.getSession().setAttribute("user", users.get(0));
+                        Long unreadCount = notificationService.unreadCount(users.get(0).getId());
+                        request.getSession().setAttribute("unreadCountNum", unreadCount);
                     }
                     break;
                 }

@@ -29,6 +29,10 @@
                     <li th:if="${session.user != null}">
                         <a href="/publish">发布</a>
                     </li>
+                    <li>
+                        <a href="/profile/replies">通知 <span class="badge"
+                                                            th:text="${session.unreadCountNum}"></span></a>
+                    </li>
                     <li class="我" th:if="${session.user != null}">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                            aria-expanded="false">
