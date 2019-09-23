@@ -2,6 +2,7 @@ package com.manong.community.service;
 
 import com.manong.community.dto.PageDTO;
 import com.manong.community.dto.QuestionDTO;
+import com.manong.community.dto.QuestionQueryDTO;
 import com.manong.community.exception.CustomizeErrorCode;
 import com.manong.community.exception.CustomizeException;
 import com.manong.community.mapper.QuestionExtMapper;
@@ -33,10 +34,17 @@ public class QuestionService {
     @Autowired
     private QuestionMapper questionMapper;
 
-    public PageDTO allPostList(Integer page, Integer size) {
+    public PageDTO allPostList(String search, Integer page, Integer size) {
+        if(StringUtils.isNoneBlank(search)){
+            String[] tags = StringUtils.split(search, " ");
+            search = Arrays.stream(tags).collect(Collectors.joining("|"));
+        }
+
         PageDTO pageDTO = new PageDTO();
         Integer totalPage;
-        Integer totalCount = (int) questionMapper.countByExample(new QuestionExample());
+        QuestionQueryDTO questionQueryDTO = new QuestionQueryDTO();
+        questionQueryDTO.setSearch(search);
+        Integer totalCount = questionExtMapper.countBySearch(questionQueryDTO);
         //解决我的问题页码问题
         if (totalCount % size == 0) {
             totalPage = totalCount / size;
@@ -56,7 +64,9 @@ public class QuestionService {
         Integer offset = size * (page - 1);
         QuestionExample descQuestion = new QuestionExample();
         descQuestion.setOrderByClause("gmt_create desc");
-        List<Question> questionList = questionMapper.selectByExampleWithRowbounds(descQuestion, new RowBounds(offset, size));
+        questionQueryDTO.setSize(size);
+        questionQueryDTO.setPage(offset);
+        List<Question> questionList = questionExtMapper.selectBySearch(questionQueryDTO);
         List<QuestionDTO> questionDTOList = new ArrayList<>();
 
         for (Question question : questionList) {

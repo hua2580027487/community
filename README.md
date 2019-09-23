@@ -31,7 +31,7 @@
 -  (win) ctrl + alt + o: 删除无用import
 -  (win) alt + f7: 查看依赖
 -  (win) ctrl + alt + o: 删除无用import
-##开启编码
+##编码故障
 - 用户名和密码问题（7.23）
 - ideamaven依赖lombok还不行，得下载lombok插件
 - thymeleaf模板使用

@@ -18,9 +18,9 @@
             </div>
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <form class="navbar-form navbar-left">
+                <form class="navbar-form navbar-left" action="/" method="get">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="搜索问题、话题或者人">
+                        <input type="text" class="form-control" name="search" placeholder="搜索问题、话题或者人">
                     </div>
                     <button type="submit" class="btn btn-default">搜索</button>
                 </form>
@@ -31,7 +31,7 @@
                     </li>
                     <li>
                         <a href="/profile/replies">通知 <span class="badge"
-                                                            th:text="${session.unreadCountNum}"></span></a>
+                         th:text="${session.unreadCountNum}"></span></a>
                     </li>
                     <li class="我" th:if="${session.user != null}">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
