@@ -119,3 +119,9 @@
     margin-bottom: 15px;
     border-bottom: 1px solid #eee;
 }
+
+.footer{
+    font-size: 12px;
+    text-align: center;
+    margin: 15px 25%;
+}
