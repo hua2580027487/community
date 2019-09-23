@@ -117,12 +117,12 @@
                         <div class="media-left">
                     <span>
                         <img class="media-object"
-                             th:src="${personQuestionDTO.user.avatarUrl}">
+                             th:src="${session.user != null ? session.user.avatarUrl : '/images/default_user.png'}">
                     </span>
                         </div>
                         <div class="media-body">
                             <h6 class="media-heading">
-                                <span th:text="${personQuestionDTO.user.name}"></span>
+                                <span th:text="${session.user != null ? session.user.name : '匿名用户'}"></span>
                             </h6>
                         </div>
                     </div>

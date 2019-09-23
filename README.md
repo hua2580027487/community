@@ -23,8 +23,13 @@
 - (win) ctrl + shift + F12 : 代码窗口最大化
 -  (win) ctrl + p : 方法参数提示
 -  (win) ctrl + alt + v : 生成相应对象
+-  (win) ctrl + alt + m : 抽方法
+-  (win) ctrl + alt + p : 抽参数
+-  (win) ctrl + alt + f : 抽变量
 -  (win) shift + f6 : 关联修改对象
--  win）ctrl + f6 : 修改变量和类型
+- （win）ctrl + f6 : 修改变量和类型
+-  (win) ctrl + alt + o: 删除无用import
+-  (win) alt + f7: 查看依赖
 -  (win) ctrl + alt + o: 删除无用import
 ##开启编码
 - 用户名和密码问题（7.23）
