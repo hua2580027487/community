@@ -8,6 +8,7 @@
 - [lombok地址]{https://projectlombok.org/setup/maven}
 - [mybatis逆向配置]{http://www.mybatis.org/generator/running/running.html}
 - [springMVC拦截器]{https://docs.spring.io/spring/docs/5.0.3.RELEASE/spring-framework-reference/web.html#mvc-handlermapping-interceptor}
+- [MarkDown富文本]{http://editor.md.ipandao.com/}
 ##项目工具
 - 数据库：H2（仅支持一次连接）
 -  mvn flyway:migrate
