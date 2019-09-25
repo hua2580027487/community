@@ -5,5 +5,5 @@ create table USER
     NAME         VARCHAR(50),
     TOKEN        varchar(36),
     GMT_CREATE   BIGINT,
-    GMT_MODIFIED BIGINT,
+    GMT_MODIFIED BIGINT
 );
