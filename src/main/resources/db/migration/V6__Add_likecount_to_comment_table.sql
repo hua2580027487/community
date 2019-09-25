@@ -1,1 +1,1 @@
-alter table COMMENT add like_count bigint default 0;
+alter table comment add like_count bigint default 0;

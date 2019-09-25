@@ -6,7 +6,5 @@ create table comment
 	type int not null,
 	commentator bigint not null,
 	gmt_create bigint not null,
-	gmt_modified bigint not null,
-	constraint comment_pk
-		primary key (id)
+	gmt_modified bigint not null
 );
