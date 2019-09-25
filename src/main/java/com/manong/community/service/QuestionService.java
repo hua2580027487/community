@@ -61,7 +61,7 @@ public class QuestionService {
         }
         pageDTO.setPage(totalPage, page);
         //5*(i-1)
-        Integer offset = size * (page - 1);
+        Integer offset = page < 1 ? 0 : size * (page - 1);
         QuestionExample descQuestion = new QuestionExample();
         descQuestion.setOrderByClause("gmt_create desc");
         questionQueryDTO.setSize(size);
