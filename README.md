@@ -15,6 +15,44 @@
 -  mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate(mybatis逆向命令)
 -  lombok(网络问题，本地安装)
 -  BeanUtils.copyProperties(复制对象工具类)
+##项目依赖
+- git
+- jdk
+- maven
+- mysql
+##部署
+- yum update
+- yum install git
+- mkdir App  cd /App
+- git clone https://github.com/hua2580027487/community.git
+- yum install maven(会安装jdk)
+- mvn -v
+- mvn clean compile package
+- cp src/main/resources/application.properties src/main/resources/application-production.properties
+- mvn package
+- java -jar -Dspring.profiles.active=production target/community-0.0.1-SNAPSHOT.jar
+-  ps -aux | grep java
+
+##服务器安装mysql
+- wget https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm
+- rpm -ivh mysql80-community-release-el7-3.noarch.rpm
+- yum makecache
+- yum list | grep mysql-com
+- yum install mysql-community-server.x86_64（时间比较长）
+- systemctl start mysqld(初始化)
+- grep 'password' /var/log/mysqld.log（默认密码）
+- mysql -uroot -p（输入密码登录）
+- ALTER USER 'root'@'localhost' IDENTIFIED BY '新密码';（更换新密码）
+- set global validate_password_policy=0;（密码简单请更换密码策略）
+- set global validate_password_length=1;
+- 云服务器请配置防火墙端口（特别是3306）
+- 配置外网访问mysql
+- 步骤：配置权限和防火墙
+- [配置权限方法]{http://www.luyixian.cn/news_show_72990.aspx}
+- mvn clean compile flyway:baseline（当数据库中已经有结构数据时使用migrate报错使用）
+- mvn clean compile flyway:repair(报错后修复)
+- mvn clean compile flyway:migrate（重新生成）
+- ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY '123';
 ##快捷键
 - （win）alt + insert : 快速Set、Get
 - (win) ctrl + shift + n :快速查找文件
