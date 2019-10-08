@@ -51,8 +51,8 @@
             resultMap="BaseResultMap">
         select * from QUESTION
         <where>
-            <if test="search != null">
-                and title regexp #{search }
+            <if test="search != null and search != ''">
+                and title regexp #{search}
             </if>
         </where>
         order by gmt_create desc limit #{page},#{size}
