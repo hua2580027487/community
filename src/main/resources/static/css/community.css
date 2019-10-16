@@ -119,19 +119,11 @@
     margin-bottom: 15px;
     border-bottom: 1px solid #eee;
 }
-
-.footer{
-    font-size: 12px;
-    text-align: center;
-    margin: 15px 25%;
-}
-
 .community-tag:hover {
     background-color: #339dff;
     color: #fff !important;
     text-decoration-line: none;
 }
-
 .community-tag {
     text-decoration-line: none;
     cursor: pointer;
@@ -144,4 +136,9 @@
     color: #fff !important;
     border-radius: 4px;
     margin: 4px;
+}
+.footer{
+    font-size: 12px;
+    text-align: center;
+    margin: 15px 25%;
 }
