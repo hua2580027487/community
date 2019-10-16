@@ -31,7 +31,9 @@
 - cp src/main/resources/application.properties src/main/resources/application-production.properties
 - mvn package
 - java -jar -Dspring.profiles.active=production target/community-0.0.1-SNAPSHOT.jar
+- kill -s -9 sid(杀掉进程)
 -  ps -aux | grep java
+- nohup java -jar -Dspring.profiles.active=production target/community-0.0.1-SNAPSHOT.jar &
 
 ##服务器安装mysql
 - wget https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm
