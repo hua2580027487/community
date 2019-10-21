@@ -83,3 +83,4 @@
 - 异常（springBoot自动识别error.html,使用枚举自定义异常，拦截不到的异常使用ErrorController拦截）
 - 使用枚举定义异常（优雅手段）
 - 使用事务@Transactional控制提交问题回复的脏数据
+- 使用PriorityQueue实现top n 步骤：（1.实例化PriorityQueue并设置类型和max  2.定义队列规则（DTO必须实现compareto方法）  3.使用list实现排序）

@@ -34,7 +34,7 @@ public class QuestionService {
     @Autowired
     private QuestionMapper questionMapper;
 
-    public PageDTO allPostList(String search, Integer page, Integer size) {
+    public PageDTO allPostList(String search, String tag, Integer page, Integer size) {
         if(StringUtils.isNoneBlank(search)){
             String[] tags = StringUtils.split(search, " ");
             search = Arrays.stream(tags).collect(Collectors.joining("|"));
@@ -44,6 +44,7 @@ public class QuestionService {
         Integer totalPage;
         QuestionQueryDTO questionQueryDTO = new QuestionQueryDTO();
         questionQueryDTO.setSearch(search);
+        questionQueryDTO.setTag(tag);
         Integer totalCount = questionExtMapper.countBySearch(questionQueryDTO);
         //解决我的问题页码问题
         if (totalCount % size == 0) {

@@ -15,7 +15,7 @@
 <script type="text/javascript">
     window.onload = function () {
         var isClose = window.localStorage.getItem("closePage");
-        if(isClose == "true"){
+        if (isClose == "true") {
             window.close();
             window.localStorage.removeItem("closePage");
         }
@@ -40,7 +40,7 @@
                     <h4 class="media-heading">
                         <a th:text="${question.title}" th:href="@{'question/'+ ${question.id}}"></a>
                     </h4>
-<!--                    <span th:text="${question.description}"></span></br>-->
+                    <!--                    <span th:text="${question.description}"></span></br>-->
                     <span class="text-desc"><span th:text="${question.commentCount}"></span> 个回复 • <span
                             th:text="${question.viewCount}"></span>次浏览 • <span
                             th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd HH:mm')}"></span></span>
@@ -49,27 +49,27 @@
             <nav aria-label="Page navigation">
                 <ul class="pagination">
                     <li th:if="${pageDTO.showFirstPage}">
-                        <a href="/?page=1,search=${search}" aria-label="Previous">
+                        <a href="/?page=1,search=${search},tag=${tag}" aria-label="Previous">
                             <span aria-hidden="true">&lt;&lt;</span>
                         </a>
                     </li>
                     <li th:if="${pageDTO.showPrevious}">
-                        <a th:href="@{/(page=${pageDTO.page - 1},search=${search})}" aria-label="Previous">
+                        <a th:href="@{/(page=${pageDTO.page - 1},search=${search},tag=${tag})}" aria-label="Previous">
                             <span aria-hidden="true">&lt;</span>
                         </a>
                     </li>
 
                     <li th:each="page : ${pageDTO.pages}" th:class="${pageDTO.page == page}? 'active' : ''">
-                        <a href="#" th:text="${page}" th:href="@{/(page=${page},search=${search})}"></a>
+                        <a href="#" th:text="${page}" th:href="@{/(page=${page},search=${search},tag=${tag})}"></a>
                     </li>
 
                     <li th:if="${pageDTO.showNext}">
-                        <a th:href="@{/(page=${pageDTO.page + 1},search=${search})}" aria-label="Previous">
+                        <a th:href="@{/(page=${pageDTO.page + 1},search=${search},tag=${tag})}" aria-label="Previous">
                             <span aria-hidden="true">&gt;</span>
                         </a>
                     </li>
                     <li th:if="${pageDTO.showEndPage}">
-                        <a th:href="@{/(page=${pageDTO.totalPage},search=${search})}" aria-label="Previous">
+                        <a th:href="@{/(page=${pageDTO.totalPage},search=${search},tag=${tag})}" aria-label="Previous">
                             <span aria-hidden="true">&gt;&gt;</span>
                         </a>
                     </li>
@@ -77,7 +77,21 @@
             </nav>
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-            <h3>热门话题</h3>
+            <h4>热门标签</h4>
+            <div th:each="tag : ${hotsTags}">
+                <div>
+                    <h5 class="media-heading">
+                        <a class="hotTag_tag" th:href="@{/(page=1,search=${search},tag=${tag})}" th:text="${tag}"></a>
+                    </h5>
+                </div>
+
+                <div class="hotTag_text">
+                    <!--                    <span >-->
+                    <!--                        <span>个问题</span>,<span>次关注</span>-->
+                    <!--                    </span>-->
+                </div>
+
+            </div>
         </div>
     </div>
 </div>
