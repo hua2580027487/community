@@ -31,7 +31,7 @@
 - cp src/main/resources/application.properties src/main/resources/application-production.properties
 - mvn package
 - java -jar -Dspring.profiles.active=production target/community-0.0.1-SNAPSHOT.jar
-- kill -s -9 sid(杀掉进程)
+- kill -s 9 sid(杀掉进程)
 -  ps -aux | grep java
 - nohup java -jar -Dspring.profiles.active=production target/community-0.0.1-SNAPSHOT.jar &
 

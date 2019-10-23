@@ -30,8 +30,6 @@ public class HotTagTasks {
         log.info("The schedule start{}", new Date());
         List<Question> list = new ArrayList<>();
         Map<String, Integer> priorities = new HashMap<>();
-        Map<String, Integer> tagCommentCount = new HashMap<>();
-        Map<String, Integer> tagLikeCount = new HashMap<>();
         while (offset == 0 || list.size() == limit) {
             list = questionMapper.selectByExampleWithRowbounds(new QuestionExample(), new RowBounds(offset, limit));
             for (Question question : list) {
@@ -43,35 +41,67 @@ public class HotTagTasks {
                     } else {
                         priorities.put(tag, 5 + question.getCommentCount());
                     }
+                }
+            }
+            offset += limit;
+        }
+        hotTagCache.updateTags(priorities);
+        log.info("The schedule stop{}", new Date());
+    }
 
-                    //回复todo
+    /**
+     * 问题数
+     */
+    @Scheduled(fixedRate = 5000 * 60 * 24)
+    public Map<String, Integer> getHotTagCommentCount() {
+        int offset = 0;
+        int limit = 5;
+        List<Question> list = new ArrayList<>();
+        Map<String, Integer> tagCommentCount = new HashMap<>();
+        while (offset == 0 || list.size() == limit) {
+            list = questionMapper.selectByExampleWithRowbounds(new QuestionExample(), new RowBounds(offset, limit));
+            for (Question question : list) {
+                String[] tags = StringUtils.split(question.getTag(), ",");
+                for (String tag : tags) {
                     Integer tagQuestion = tagCommentCount.get(tag);
                     if (tagQuestion != null) {
                         tagCommentCount.put(tag, ++tagQuestion);
                     } else {
                         tagCommentCount.put(tag, 1);
                     }
+                }
+            }
+            offset += limit;
+        }
+        hotTagCache.updateTags(tagCommentCount);
+        return tagCommentCount;
+    }
 
-                    //关注todu
-                    Integer tagReply = tagLikeCount.get(tag);
+    /**
+     * 关注数
+     */
+    @Scheduled(fixedRate = 5000 * 60 * 24)
+    public Map<String, Integer> getHotTagLikeCount() {
+        int offset = 0;
+        int limit = 5;
+        List<Question> list = new ArrayList<>();
+        Map<String, Integer> hotTagLikeCount = new HashMap<>();
+        while (offset == 0 || list.size() == limit) {
+            list = questionMapper.selectByExampleWithRowbounds(new QuestionExample(), new RowBounds(offset, limit));
+            for (Question question : list) {
+                String[] tags = StringUtils.split(question.getTag(), ",");
+                for (String tag : tags) {
+                    Integer tagReply = hotTagLikeCount.get(tag);
                     if (tagReply != null) {
-                        tagLikeCount.put(tag, tagReply + question.getLikeCount());
+                        hotTagLikeCount.put(tag, tagReply + question.getLikeCount());
                     } else {
-                        tagLikeCount.put(tag, question.getLikeCount());
+                        hotTagLikeCount.put(tag, question.getViewCount());
                     }
                 }
             }
             offset += limit;
         }
-
-        priorities.forEach((k, v) -> {
-            System.out.print(k);
-            System.out.print(":");
-            System.out.print(v);
-            System.out.println();
-        });
-        hotTagCache.updateTags(priorities);
-        log.info("The schedule stop{}", new Date());
+        hotTagCache.updateTags(hotTagLikeCount);
+        return hotTagLikeCount;
     }
-
 }

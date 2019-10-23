@@ -80,17 +80,17 @@
             <h4>热门标签</h4>
             <div th:each="tag : ${hotsTags}">
                 <div>
-                    <h5 class="media-heading">
+                    <h5 class="media-tag">
                         <a class="hotTag_tag" th:href="@{/(page=1,search=${search},tag=${tag})}" th:text="${tag}"></a>
                     </h5>
                 </div>
 
                 <div class="hotTag_text">
-                    <!--                    <span >-->
-                    <!--                        <span>个问题</span>,<span>次关注</span>-->
-                    <!--                    </span>-->
+                    <span >
+                        <span th:text="${hotTagCommentCount.get(tag)}"></span>个问题,
+                        <span th:text="${hotTagLikeCount.get(tag)}"></span>次关注
+                    </span>
                 </div>
-
             </div>
         </div>
     </div>

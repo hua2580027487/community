@@ -156,6 +156,10 @@
     color: #fff !important;
     border-radius: 4px;
 }
+.media-tag{
+    margin-top: 0;
+    margin-bottom: 0px;
+}
 .footer{
     font-size: 12px;
     text-align: center;
